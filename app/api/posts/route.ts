@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDatabase } from '@/lib/mongodb';
 import { verifyToken, extractTokenFromRequest } from '@/lib/auth';
-import { blogPostSchema, sanitizeInput, calculateReadingTime, generateSlug } from '@/lib/validation';
+import {
+  blogPostSchema,
+  sanitizeInput,
+  calculateReadingTime,
+  generateSlug
+} from '@/lib/validation';
+import { ZodError } from 'zod';
 
 export async function GET(request: NextRequest) {
   try {
@@ -84,8 +90,9 @@ export async function POST(request: NextRequest) {
     // Validate input
     const result = blogPostSchema.safeParse(body);
     if (!result.success) {
+      const zodError = result.error as ZodError;
       return NextResponse.json(
-        { error: 'Invalid input', details: result.error.errors },
+        { error: 'Invalid input', details: zodError.issues },
         { status: 400 }
       );
     }
