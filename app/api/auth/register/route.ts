@@ -11,9 +11,9 @@ export async function POST(request: NextRequest) {
     // Validate input
     const result = registerSchema.safeParse(body);
     if (!result.success) {
-      const zodError: ZodError = result.error;
+      const zodError = result.error as ZodError;
       return NextResponse.json(
-        { error: 'Invalid input', details: zodError.errors },
+        { error: 'Invalid input', details: zodError.issues },
         { status: 400 }
       );
     }
