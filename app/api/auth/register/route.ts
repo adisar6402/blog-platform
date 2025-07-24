@@ -2,22 +2,24 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getDatabase } from '@/lib/mongodb';
 import { hashPassword, generateToken } from '@/lib/auth';
 import { registerSchema, sanitizeInput } from '@/lib/validation';
+import { ZodError } from 'zod';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    
+
     // Validate input
     const result = registerSchema.safeParse(body);
     if (!result.success) {
+      const zodError: ZodError = result.error;
       return NextResponse.json(
-        { error: 'Invalid input', details: result.error.errors },
+        { error: 'Invalid input', details: zodError.errors },
         { status: 400 }
       );
     }
 
     const { name, email, password } = result.data;
-    
+
     // Sanitize inputs
     const sanitizedName = sanitizeInput(name);
     const sanitizedEmail = sanitizeInput(email.toLowerCase());
