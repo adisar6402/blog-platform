@@ -42,14 +42,14 @@ export async function POST(request: NextRequest) {
       name: sanitizedName,
       email: sanitizedEmail,
       password: hashedPassword,
-      createdAt: new Date()
+      createdAt: new Date(),
     };
 
     const result_insert = await users.insertOne(newUser);
     const user = {
       _id: result_insert.insertedId.toString(),
       name: sanitizedName,
-      email: sanitizedEmail
+      email: sanitizedEmail,
     };
 
     const token = generateToken(user);
@@ -57,7 +57,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       message: 'User created successfully',
       token,
-      user
+      user,
     });
 
   } catch (error) {
