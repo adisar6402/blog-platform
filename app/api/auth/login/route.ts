@@ -6,7 +6,7 @@ import { loginSchema, sanitizeInput } from '@/lib/validation';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    
+
     // Validate input
     const result = loginSchema.safeParse(body);
     if (!result.success) {
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
     const userForToken = {
       _id: user._id.toString(),
       name: user.name,
-      email: user.email
+      email: user.email,
     };
 
     const token = generateToken(userForToken);
@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       message: 'Login successful',
       token,
-      user: userForToken
+      user: userForToken,
     });
 
   } catch (error) {
