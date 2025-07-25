@@ -3,6 +3,33 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { BookOpen, Zap, Shield, BarChart3 } from 'lucide-react';
 
+export const metadata = {
+  title: 'BlogPlatform - Production-Ready Blog',
+  description: 'A scalable blog platform built with Next.js, MongoDB, and modern web technologies.',
+  openGraph: {
+    title: 'BlogPlatform - Production-Ready Blog',
+    description: 'A scalable blog platform built with Next.js, MongoDB, and modern web technologies.',
+    url: 'https://blog-platform-2025.vercel.app',
+    siteName: 'BlogPlatform',
+    images: [
+      {
+        url: 'https://blog-platform-2025.vercel.app/og-image.png', // Replace with real image later
+        width: 1200,
+        height: 630,
+        alt: 'BlogPlatform Open Graph Image',
+      },
+    ],
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'BlogPlatform - Production-Ready Blog',
+    description: 'A scalable blog platform built with Next.js, MongoDB, and modern web technologies.',
+    images: ['https://blog-platform-2025.vercel.app/og-image.png'],
+  },
+};
+
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
