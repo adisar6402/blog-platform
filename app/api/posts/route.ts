@@ -30,12 +30,18 @@ export async function GET(request: NextRequest) {
     const decoded = token ? verifyToken(token) : null;
 
     if (forDashboard && decoded) {
-      // Show all posts by the logged-in user on the dashboard
+      // Dashboard mode: user sees their own posts
       query.author = decoded.name;
     } else {
-      // Public view: only published posts
+      // Public mode: show only published posts
       query.published = true;
-      if (search) query.$text = { $search: search };
+      if (search) {
+        // If $text index exists
+        query.$or = [
+          { title: { $regex: search, $options: 'i' } },
+          { content: { $regex: search, $options: 'i' } }
+        ];
+      }
       if (tag) query.tags = { $in: [tag.toLowerCase()] };
     }
 
@@ -121,7 +127,7 @@ export async function POST(request: NextRequest) {
       updatedAt: new Date(),
       author: decoded.name,
       views: 0,
-      published: true // ensures public visibility
+      published: true
     };
 
     const inserted = await posts.insertOne(newPost);
