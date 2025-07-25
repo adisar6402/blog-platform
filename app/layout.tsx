@@ -9,7 +9,7 @@ import { Navbar } from '@/components/Navbar';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://blogplatform.vercel.app'),
+  metadataBase: new URL('https://blog-platform-2025.vercel.app'),
   title: 'BlogPlatform - Production-Ready Blog',
   description: 'A scalable blog platform built with Next.js, MongoDB, and modern web technologies.',
   keywords: ['blog', 'nextjs', 'mongodb', 'react', 'typescript', 'tailwind'],
